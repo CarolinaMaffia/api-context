@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { useState } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
+import C1 from './components/c1';
 function App() {
+  const [theme, setTheme] = useState('light');
+
+  const handleClick = () => {
+    setTheme('dark');
+  }
+
+  const handleCallback = () => {
+    setTheme('light');
+  }
+
+  const themeValue = {
+    theme: theme,
+    handleCallback: handleCallback
+  }
+
+  console.log(theme);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider value={themeValue}>
+      <button onClick={handleClick}>Cambiar Tema</button>
+      <p>En App el valor del theme es: {theme}</p>
+        <C1/>
+    </ThemeProvider>
   );
 }
 
